@@ -15,8 +15,8 @@ on:
 
 
 jobs:
-
-  lint:
+ 
+  OAS_TO_Kong:
 
     runs-on: ubuntu-latest
 
@@ -75,6 +75,37 @@ jobs:
 
     - name: check
 
-      run: deck sync -s new-kong.yaml --kong-addr http://3.110.77.239:8001
+      run: deck sync -s new-kong.yaml --kong-addr http://34.125.205.223:8001
+  publish-customer-api-to-portal:  # Publish the API to the dev portal
+  
+    name: Publish OAS to dev portal
 
-      #jewhd
+    needs: OAS_TO_Kong   # Make sure the completed before running this job
+
+    runs-on: ubuntu-latest  # Use Ubuntu as the operating system for the job
+
+    steps:
+
+      - name: Checkout branch  # Checkout the branch from the repository
+
+        uses: actions/checkout@v2
+
+      - name: Install NodeJs  # Install Node.js for running the dev portal CLI
+
+        uses: actions/setup-node@v3
+
+      - name: Install kon-dev-portal-cli  # Install dev portal CLI
+
+        run: npm install -g kong-portal-cli
+
+      - name: Deploy to dev portal
+
+        run: |          
+
+          portal deploy --preserve default 
+
+        env:
+
+          KONG_ADMIN_URL: http://34.125.205.223:8001
+
+    
