@@ -1,6 +1,5 @@
 name: Lint OpenAPI Spec
 
-
 on:
 
   push:
