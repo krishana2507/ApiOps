@@ -73,7 +73,7 @@ jobs:
 
     - name: check
 
-      run: deck sync -s new-kong.yaml --kong-addr http://3.110.77.239:8001
+      run: deck sync -s new-kong.yaml --kong-addr http://13.233.109.117:8001
   publish-customer-api-to-portal:  # Publish the API to the dev portal
   
     name: Publish OAS to dev portal
@@ -104,6 +104,6 @@ jobs:
 
         env:
 
-          KONG_ADMIN_URL: http://3.110.77.239:8001
+          KONG_ADMIN_URL: http://13.233.109.117:8001
 
     
